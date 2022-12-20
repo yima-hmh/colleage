@@ -20,7 +20,24 @@
 
 ##### 选中要提交到暂存区的文件,然后点击commit,选择Stage to commit来提交至暂存区
 
+add的快捷键是ctrl+T
+
 ![](asset/stage.jpg)
 
+添加到暂存区之后,可以在message区中写提交的是什么工作
 
+![](asset/commit.jpg)
 
+然后点击commit,就把该文档提交给git管理了.点击repository-visualize master's files查看此时的主分支
+
+![](asset/vis.jpg)
+
+如若要推到远程仓库,和远程仓库使用ssh认证连接之后
+
+**git remote add origin +ssh链接**   用来连接到远程仓库
+
+**git clone  + ssh链接** 这是直接拉取远程仓库的语句
+
+**git pull origin "分支名"** 拉取远程仓库的分支到本地,并且并入本地的分支.
+
+**git push origin "分支名"** 推本地文件到远程仓库
