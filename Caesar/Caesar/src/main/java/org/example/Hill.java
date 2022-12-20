@@ -101,6 +101,36 @@ public class Hill{
         System.out.println(cipherText.replaceAll(" ",""));
     }
 
+    //解密
+    public void Decrypt(String cipherText,Matrix_c secretKey){
+        int splitLen = secretKey.len;
+        Character[] cipherArray = new Character[(cipherText.length())/2];
+        for (int i = 0,j = 0; i < (cipherText.length()); i+=2,j++){
+            cipherArray[j] = cipherText.charAt(i);
+        }
+        int[][] matrixArray = new int[cipherArray.length/splitLen][splitLen];
+        for (int i = 0,j = 0; i < cipherArray.length; i+=splitLen,j++){
+            for (int k =0; k < splitLen; k++)
+                matrixArray[j][k] = wordMap.get(cipherArray[i + k]);  //将密文转为int矩阵
+        }
+        Matrix_c inversionKey = new Matrix_c();
+        inversionKey.setValue(secretKey.getInversionMatrix(secretKey.matrix));
+        String clearText = "";
+        for (int i = 0; i < matrixArray.length; i++){                   //乘逆矩阵解密
+            int[][] changeToTwoDimension = {matrixArray[i]};
+            int[][] vec= inversionKey.MultplyMatrix(changeToTwoDimension);
+            for (int[] j: vec){
+                for (int k: j){
+                    while(k<0){
+                        k+=26;
+                    }
+                    clearText+=numMap.get(k%26);
+                }
+            }
+        }
+        System.out.println(clearText);
+    }
+
     public static void main(String[] args) {
         System.out.println("Please enter number 1 or 2 to choose which operation you want to do (1.Encrypt 2.Decrypt): ");
         Scanner s = new Scanner(System.in);
