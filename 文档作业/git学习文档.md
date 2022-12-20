@@ -41,3 +41,9 @@ add的快捷键是ctrl+T
 **git pull origin "分支名"** 拉取远程仓库的分支到本地,并且并入本地的分支.
 
 **git push origin "分支名"** 推本地文件到远程仓库
+
+#### 添加gitignore文档
+
+- [.gitignore的用法](https://blog.csdn.net/weixin_45318845/article/details/120740012)
+
+- 放在根目录下,自动的git就会处理.
