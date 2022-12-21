@@ -166,13 +166,175 @@
 
 ##### 算法基本原理
 
-##### 界面截图
+- 用户A随机产生一个素数q和一个整数a,并且a是q的本原根,这两个数全世界都可以知道.接下来,就是如下图,所有流程都是直接明文交流的,最终在双方处可以产生一个共同的只有彼此知道的密钥.
+  ![](asset/dh/密钥交换.jpg)
+
+- 根本原理
+
+  ![](asset/dh/根本原理.jpg)
+
+- 原根
+
+  假设一个数g是p的原根
+
+  ![](asset/dh/原根.jpg)
+
+  
+
+##### 作业要求的关键函数实现
+
+```java
+ // 判断n是否是素数
+    public boolean isPrime(int n) {
+        boolean flag = true;
+        //求平方根
+        int max = (int) Math.sqrt(n);
+        for (int i = 2; i <= max; i++) {
+            if (n % i == 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+
+ //计算a,b的最大公因子
+    public int GCD(int a, int b) {
+        int gcd = 0, c;
+        if (a > b) {
+            while (b != 0) {
+                a = a % b;
+                if (a < b) {
+                    c = a;
+                    a = b;
+                    b = c;
+                }
+                gcd = a;
+            }
+        }
+        if (a == b)
+            gcd = a;
+        else {
+            c = a;
+            a = b;
+            b = c;
+            while (b != 0) {
+                a = a % b;
+                if (a < b) {
+                    c = a;
+                    a = b;
+                    b = c;
+                }
+                gcd = a;
+            }
+        }
+        return gcd;
+    }
+
+
+ //计算b^n mod m
+    public BigInteger ExpMod(BigInteger b, BigInteger n, BigInteger m) {
+        BigInteger a = new BigInteger("1");
+        //进制转换
+        String t1 = n.toString(2);
+        int[] N = new int[t1.length()];
+        for (int i = 0; i <= t1.length() - 1; i++) {
+            N[i] = Integer.parseInt(t1.substring(t1.length() - i - 1, t1.length() - i));
+        }
+
+        for (int j = 0; j <= t1.length() - 1; j++) {
+
+            if (j != t1.length() - 1) {
+                if (N[j] == 1)
+                    a = (a.multiply(b)).remainder(m);
+                if (N[j] == 0)
+                    a = a.remainder(m);
+                b = (b.multiply(b)).remainder(m);
+            } else {
+                if (N[j] == 1)
+                    a = (a.multiply(b)).remainder(m);
+                if (N[j] == 0)
+                    a = a.remainder(m);
+            }
+        }
+        return a;
+    }
+```
+
+```java
+/*最关键求本原根函数8/
+   //得到p的所有生成元
+    //从2开始暴力枚举,判断g^(p-1)mod(p)=1时是否指数为p-1.
+    public ArrayList<Integer> getAllRoot(int p) {
+        ArrayList<Integer> list = new ArrayList<>();
+        int a = 2;
+        int flag = 1;
+        BigInteger temp;
+        while (a < p) {
+            flag = 1;
+            temp = BigInteger.valueOf(a);
+
+            //这个循环主要是用来判断会不会有其他的flag使得这个式子成立.
+            while (flag < p) {
+                if (temp.pow(flag).mod(BigInteger.valueOf(p)).intValue() == 1) {
+                    break;
+                }
+                flag++;
+            }
+
+            //如果是的话,出来时肯定是break出来的,此时flag来不及继续++,值就是p-1
+            if (flag == p-1) {
+                list.add(a);
+            }
+            //计算下一个a,直到a=p-1;
+            a++;
+        }
+        return list;
+
+    }
+    
+    
+    
+        //有了生成元的全部集合后,判断g是不是模p成的生成元就很简单了
+    public boolean isPrimerRoot(int g, int p) {
+        Boolean is = false;
+        ArrayList list = new DH().getAllRoot(p);
+        for (int i = 0; i < list.size(); i++) {
+            if (g == (Integer) list.get(i)) {
+                is = true;
+                break;
+            }
+        }
+        return is;
+    }
+```
+
+
+
+
 
 ##### 输出结果截图
 
+- q=97 a=37
+
+![](asset/dh/结果1.jpg)
+
+- q=97 a=5
+
+![](asset/dh/结果2.jpg)
+
+
+
+
+
 ### RSA算法
 
+---
+
 ##### 算法基本原理
+
+
 
 ##### 界面截图
 
