@@ -140,6 +140,11 @@ public class DH {
             System.out.println("输入错误,请输入一个素数!");
             p = dh.getP();
         }
+        //这个是当此素数没有生成根时调用
+        while(dh.getAllRoot(p).isEmpty()){
+            System.out.println("此素数没有生成根,请重新输入一个素数:");
+            p=dh.getP();
+        }
         return p;
     }
 
