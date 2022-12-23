@@ -4,6 +4,7 @@ import java.io.File;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.Base64;
 import java.util.Scanner;
 
 public class MAIN {
@@ -34,7 +35,7 @@ public class MAIN {
         Scanner scanner = new Scanner(System.in);
         System.out.println("请输入你要进行签名的字符串:");
         String line = scanner.nextLine();
-        while (line==null||line==""){
+        while (line==null||line=="\n"){
             System.out.println("未检测到字符串");
             line=getUserString();
         }
@@ -58,11 +59,12 @@ public class MAIN {
             System.out.println("字符串得到的MD5值是"+md5);
             //私钥签名
             byte[] priSign = RSA.sign(string.getBytes(), privateKey);
-//            System.out.println("得到的的私钥是签名是"+priSign.toString());
+
+            System.out.println("得到的的私钥是签名是:"+ Base64.getEncoder().encodeToString(priSign));
             //公钥验签
             boolean verify = RSA.verify(string.getBytes(), priSign, publicKey);
             if(verify==true){
-                System.out.println("公钥验签之后的判断是:"+"验签成功,签名有效");
+                System.out.println("那么验签之后的判断是:"+"验签成功,签名有效");
             }else {
                 System.out.println("签名不可信!");
             }

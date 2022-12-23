@@ -1,3 +1,4 @@
+/*
 package org.example;
 
 
@@ -24,7 +25,8 @@ public class TestApp {
 
     @Test
     public void TestStringMD5() throws UnsupportedEncodingException {
-  /*      String md5 = MD5.getMD5("郑光宇123");
+  */
+/*      String md5 = MD5.getMD5("郑光宇123");
         char[] strChar = md5.toCharArray();
         String result="";
 
@@ -50,7 +52,8 @@ public class TestApp {
         System.out.println(a);
         String b="郑光宇123";
         byte[] bytes = b.getBytes();
-        System.out.println(bytes);*/
+        System.out.println(bytes);*//*
+
         System.out.println(MD5.getMD5("zhenggguangyu123"));
         System.out.println(MD5.getMD5("zhenggguangyu123"));
         System.out.println(MD5.getMD5("郑光宇123456啊啊啊啊"));
@@ -60,13 +63,15 @@ public class TestApp {
         System.out.println("------");
         String s1 = MD5.getMD5("zhenggguangyu123");
         String s2 = MD5.getMD5("zhenggguangyu123");
-
         System.out.println(s1);
         System.out.println(s2);
         //这里输出不一样是因为输出的是地址
         byte[] bytes = s1.getBytes("UTF-8");
+        System.out.println("------");
+        System.out.println(s1);
+        System.out.println(new String(bytes));
         System.out.println(s2.getBytes("UTF-8"));
     }
 
 
-}
+}*/
