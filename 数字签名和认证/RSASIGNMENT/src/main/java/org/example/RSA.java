@@ -69,7 +69,6 @@ public class RSA {
 
             // 用公钥初始化签名工具
             sign.initVerify(pubKey);
-            sign.initSign(pubKey);
 
             // 添加要校验的数据
             sign.update(data);
@@ -77,8 +76,6 @@ public class RSA {
             // 如果返回 true, 说明该数据的签名信息来自该公钥对应的私钥,
             // 同一个私钥的签名, 数据和签名信息一一对应, 只要其中有一点修改, 则用公钥无法校验通过,
             // 因此可以用私钥签名, 然后用公钥来校验数据的完整性与签名者（所有者）
-            byte[] pubSign = sign.sign();
-            System.out.println("对私钥加密MD5值进行公钥解密之后的MD5值是:"+Base64.getEncoder().encodeToString(pubSign));
             boolean verify = sign.verify(signInfo);
 
             return verify;
